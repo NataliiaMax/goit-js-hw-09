@@ -43,7 +43,14 @@ const timer = {
   start() {
     timerId = setInterval(() => {
       const ms = calendar.selectedDates[0] - now;
-      updateTime(convertMs(ms));
+      console.log(ms);
+
+      const { days, hours, minutes, seconds } = convertMs(ms);
+        daysRef.innerHTML = days;
+        hoursRef.innerHTML = hours;
+        minutesRef.innerHTML = minutes;
+        secondsRef.innerHTML = seconds;
+      // updateTime(convertMs(ms));
       if (ms <= 0) {
         clearInterval(timerId);
       }
@@ -52,12 +59,12 @@ const timer = {
   },
 };
 
-function updateTime({ days, hours, minutes, seconds }) {
-  daysRef.innerHTML = days;
-  hoursRef.innerHTML = hours;
-  minutesRef.innerHTML = minutes;
-  secondsRef.innerHTML = seconds;
-}
+// function updateTime({ days, hours, minutes, seconds }) {
+//   daysRef.innerHTML = days;
+//   hoursRef.innerHTML = hours;
+//   minutesRef.innerHTML = minutes;
+//   secondsRef.innerHTML = seconds;
+// }
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
