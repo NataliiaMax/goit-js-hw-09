@@ -9,7 +9,6 @@ const minutesRef = document.querySelector('[data-minutes]');
 const secondsRef = document.querySelector('[data-seconds]');
 
 let now = Date.now();
-console.log(now);
 let timerId = null;
 
 btnStart.setAttribute('disabled', false);
@@ -41,30 +40,27 @@ function onClickBtn() {
 
 const timer = {
   start() {
-    timerId = setInterval(() => {
-      const ms = calendar.selectedDates[0] - now;
-      console.log(ms);
-
-      const { days, hours, minutes, seconds } = convertMs(ms);
-        daysRef.innerHTML = days;
-        hoursRef.innerHTML = hours;
-        minutesRef.innerHTML = minutes;
-        secondsRef.innerHTML = seconds;
-      // updateTime(convertMs(ms));
-      if (ms <= 0) {
+    timerId = setInterval(() => { 
+        const ms = calendar.selectedDates[0] - Date.now();
+    if (
+        //  ms <= 0)
+        daysRef.innerHTML === '00' &&
+        hoursRef.innerHTML === '00' &&
+        minutesRef.innerHTML === '00' &&
+        secondsRef.innerHTML === '01')
+       {
         clearInterval(timerId);
-      }
-    
+        btnStart.setAttribute('disabled', false);
+        Notiflix.Notify.info('Time is over');
+    }
+      const { days, hours, minutes, seconds } = convertMs(ms);
+      daysRef.innerHTML = days;
+      hoursRef.innerHTML = hours;
+      minutesRef.innerHTML = minutes;
+      secondsRef.innerHTML = seconds;
     }, 1000);
   },
 };
-
-// function updateTime({ days, hours, minutes, seconds }) {
-//   daysRef.innerHTML = days;
-//   hoursRef.innerHTML = hours;
-//   minutesRef.innerHTML = minutes;
-//   secondsRef.innerHTML = seconds;
-// }
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
