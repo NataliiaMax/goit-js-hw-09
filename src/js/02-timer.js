@@ -40,19 +40,18 @@ function onClickBtn() {
 
 const timer = {
   start() {
-    timerId = setInterval(() => { 
-        const ms = calendar.selectedDates[0] - Date.now();
-    if (
-        //  ms <= 0)
+    timerId = setInterval(() => {
+      const ms = calendar.selectedDates[0] - Date.now();
+      if (
         daysRef.innerHTML === '00' &&
         hoursRef.innerHTML === '00' &&
         minutesRef.innerHTML === '00' &&
-        secondsRef.innerHTML === '01')
-       {
+        secondsRef.innerHTML === '01'
+      ) {
         clearInterval(timerId);
         btnStart.setAttribute('disabled', false);
         Notiflix.Notify.info('Time is over');
-    }
+      }
       const { days, hours, minutes, seconds } = convertMs(ms);
       daysRef.innerHTML = days;
       hoursRef.innerHTML = hours;
